@@ -3,6 +3,9 @@
 #include "BST.h"
 #include <queue>
 #include <stack>
+#include <vector>
+#include <algorithm>
+#include <math.h>
 using namespace std;
 
 
@@ -20,6 +23,11 @@ BST::BSTnode* BST::CreateLeaf(int k){
 int BST::max(int a, int b){
 	return a>b?a:b;
 }
+
+	int BST::min(int a, int b){
+	return a<b?a:b;
+}
+
 int BST::MaxDepth(){
 	return MaxDepthP(root);
 }
@@ -128,7 +136,7 @@ void BST::PrintOrderP(BSTnode* Ptr){
 		{
 			PrintOrderP(Ptr->L);
 		}
-		cout<<Ptr->data<<" ";
+		cout<<Ptr->data<<" "<<Ptr->subtreenodes<<" "<<"\n";
 		if (Ptr->R!=NULL)
 		{
 			PrintOrderP(Ptr->R);
@@ -138,12 +146,17 @@ else{
 	cout<<"Tree is empty"<<"\n";
 }
 }
- int BST::numberofnodes(){
+int BST::numberofnodes(){
+
+	return numberofnodesP(root);
+}
+
+ int BST::numberofnodesP(BSTnode* Ptr){
 int count =0;
 queue <BSTnode*> Q;
 if (!isempty())
 {
-	Q.push(root);
+	Q.push(Ptr);
 	while(!Q.empty()){
 
 		
@@ -165,7 +178,6 @@ else{
 	return count;
 
 }
-// }
 
 void BST::PreOrder(){
 	PreOrderP(root);
@@ -245,7 +257,40 @@ if (!isempty())
 else{
 	cout<<"The tree is empty"<<"\n";
 }
-		cout<<"\n"<<count;
+		//cout<<"\n"<<count;
+
+}
+
+// void BST::subtreenodes(){
+// 	subtreenodesP(root);
+// }
+
+void BST::subtreenodes(int k){
+ BSTnodePtr Ptr= ReturnNode(k);
+int count =0;
+queue <BSTnode*> Q;
+if (!isempty())
+{
+	Q.push(Ptr);
+	while(!Q.empty()){
+		//BSTnodePtr n=ReturnNode(Q.front());
+		Q.front()->subtreenodes=numberofnodesP(Q.front())-1;
+		
+		if (Q.front()->L!=NULL)
+		{
+			Q.push(Q.front()->L);
+		}
+		if (Q.front()->R!=NULL)
+		{
+			Q.push(Q.front()->R);
+		}
+			Q.pop();
+	}
+}
+else{
+	cout<<"The tree is empty"<<"\n";
+}
+		//cout<<"\n"<<count;
 
 }
 
@@ -479,6 +524,15 @@ bool BST::isempty(){
 return root==NULL;
 }
 
+bool BST::isnotbalanced(){
+	return isnotbalancedP(root);
+}
+
+bool BST::isnotbalancedP(BSTnode* Ptr){
+return abs(MaxDepthPublic(Ptr->R)-MaxDepthPublic(Ptr->L)>=2);
+
+}
+
 bool BST::isBST(){
 
 	if(isBSTP(root)){
@@ -509,5 +563,344 @@ bool BST::isBSTP(BSTnode* Ptr){
 	}
 
 return flag==0;
+}
+
+int BST::FindLCA(int a, int b){
+
+return FindLCAP(root,a,b);
+}
+
+int BST::FindLCAP(BSTnode* Ptr, int a, int b){
+
+if (!isempty())
+{
+	if (Ptr->data<a && Ptr->data>b || Ptr->data>a && Ptr->data<b)
+	{
+		return Ptr->data;
+	}
+	else if (Ptr->data<a && Ptr-> data<b)
+	{
+		FindLCAP(Ptr->R,a,b);
+	}
+	else if (Ptr->data>a && Ptr-> data>b)
+	{
+		FindLCAP(Ptr->L,a,b);
+	}
+}
+
+
+
+else{
+	cout<<"Tree is empty"<<"\n";
+}
+}
+
+int BST::FindShortestDistance(int a, int b){
+
+	return FindShortestDistanceP(root, a,b);
+}
+
+int BST::FindShortestDistanceP(BSTnode* Ptr, int a, int b){
+ BSTnodePtr n=ReturnNode(FindLCA(a,b));
+ BSTnodePtr m=n;
+int count1=0;
+int count2=0;
+	if (!isempty())
+	{
+	while(n->data!=a)
+		{
+			if (a>n->data)
+			{
+				n=n->R;
+				count1++;
+			}
+			else if (a<n->data)
+			{
+				n=n->L;
+				count1++;
+			}
+		}
+	while(m->data!=b)
+		{
+			if (b>m->data)
+			{
+				m=m->R;
+				count2++;
+			}
+			else if (b<m->data)
+			{
+				m=m->L;
+				count2++;
+			}
+		}
+
+
+			
+return count1+count2;
+}
+else{
+		cout<<"Tree is empty"<<"\n";
+}
+}
+
+void BST::MirrorImage(){
+	 MirrorImageP(root);
+}
+
+void BST::MirrorImageP(BSTnode* Ptr){
+
+if (!isempty())
+{
+	
+
+	if(MaxDepthPublic(Ptr)!=1){
+
+	BSTnodePtr n =Ptr->R;
+	Ptr->R=Ptr->L;
+	Ptr->L=n;
+
+	if(Ptr->R!=NULL){MirrorImageP(Ptr->R);}
+	if(Ptr->L!=NULL){MirrorImageP(Ptr->L);}
+}
+
+
+}
+
+else{
+	cout<<"The tree is empty"<<"\n";
+}
+
+}
+
+void BST::RangeOfNumbers(int K1, int K2){
+
+	RangeOfNumbersP(root, K1, K2);
+}
+
+void BST::RangeOfNumbersP(BSTnode* Ptr, int K1, int K2){
+stack<int> S;
+if (!isempty())
+	{
+		if (Ptr->L!=NULL)
+		{
+			RangeOfNumbersP(Ptr->L,K1, K2);
+		}
+if (Ptr->data>K1 && Ptr->data<K2)
+		{
+			
+
+			S.push(Ptr->data);
+		}	
+
+
+
+			if (Ptr->R!=NULL)
+		{
+			RangeOfNumbersP(Ptr->R,K1,K2);
+		}
+	}
+else{
+	cout<<"Tree is empty"<<"\n";
+}
+for (int i = 0; i < S.size(); ++i)
+{
+	cout<<S.top()<<" "<<"\n";
+	S.pop();
+}
+}
+
+void BST::balance(){
+	balanceP(root);
+}
+
+
+void BST::balanceP(BSTnode* Ptr){
+
+if (isnotbalanced())
+{
+	
+}
+
+
+
+else{
+	cout<<"Tree is already balanced"<<"\n";
+}
+}
+
+void BST::closestkey(int k){
+	closestkeyP(root, k);
+}
+
+void BST::closestkeyP(BSTnode* Ptr, int k){
+
+queue <BSTnode*> Q;
+vector <int> V;
+vector <int> V1;
+if (!isempty())
+{
+	Q.push(Ptr);
+	while(!Q.empty()){
+
+		if(k<Q.front()->data){
+			V.push_back(Q.front()->data);
+			//cout<<V.front();
+		}
+		if (k>Q.front()->data)
+		{
+		V1.push_back(Q.front()->data);	
+		}
+		if (Q.front()->L!=NULL)
+		{
+			Q.push(Q.front()->L);
+		}
+		if (Q.front()->R!=NULL)
+		{
+			Q.push(Q.front()->R);
+		}
+			Q.pop();
+	}
+}
+	else{
+		cout<<"The Tree is empty"<<"\n";
+	}
+	
+sort(V.begin(), V.end());
+sort(V1.begin(), V1.end());
+// cout<<V1.back()<<"\n";
+// 		cout<<V.front()<<"\n";
+
+	// if(!(V.empty() && V1.empty())){
+	// 	abs(V.front()-k)>abs(k-V1.back())?
+	// 	cout<<V1.back()<<"\n":
+	// 	cout<<V.front()<<"\n";
+	// }
+
+ if (V.empty() || !V1.empty())
+	{
+	cout<<V1.back()<<"\n";
+	}
+else if (!V.empty() || V1.empty())
+	{
+	cout<<V.front()<<"\n";
+	}
+else if(!(V.empty() && V1.empty())){
+		abs(V.front()-k)>abs(k-V1.back())?
+		cout<<V1.back()<<"\n":
+		cout<<V.front()<<"\n";
+	}
+}
+
+void BST::DSWalgorithm(){
+	DSWalgorithmP(root);
+}
+
+void BST::DSWalgorithmP(BSTnode* Ptr){
+
+	if (!isempty())
+	{
+	
+		CreateBackbone(Ptr);
+		CreateBalanced();
+
+
+	}
+
+
+else{
+	cout<<"The tree is empty";
+}
+
+}
+
+void BST::CreateBackbone(BSTnode* Ptr){
+curr=Ptr;
+temp=Ptr;
+
+while(Ptr->L!=NULL)
+{
+	Ptr=temp->L;
+	if(Ptr->R){temp->L=Ptr->R;}
+	Ptr->R=temp;
+	root=Ptr;
+	curr=root;
+	temp=root;
+	}
+//cout<<"\n"<<root->data<<curr->data<<temp->data;
+
+curr=temp;
+temp=temp->R;
+
+
+while(temp!=NULL){
+
+	if (temp->L!=NULL)
+	{
+		rotatePhase1(temp,curr);
+		temp=curr->R;
+	}
+
+else{
+	curr=temp;
+	temp=temp->R;
+}
+}
+}
+
+void BST::CreateBalanced(){
+
+// int a=numberofnodes();
+// cout<<pow(floor(log(numberofnodes()+1)),2)-1;
+int a= numberofnodes();
+int b= 3;
+int c=a-b;
+//cout<<a<<b<<c;
+vector <BSTnode*> PtrV;
+if (c>0)
+{
+rotatePhase2(c);
+}
+while(b>1){
+
+	b=b/2;
+
+rotatePhase2(b);
+}
+}
+
+
+
+void BST::rotatePhase1(BSTnode* temp, BSTnode* curr){
+curr->R=temp->L;
+		if(temp->L->R!=NULL){temp->L=temp->L->R;}
+		else{temp->L=NULL;}
+		curr->R->R=temp;
+}
+
+
+void BST::rotatePhase2(int a){
+
+		curr=root;
+		temp=curr->R;
+		delPtr=temp;
+	for (int i = 0; i < a ; ++i)
+	{
+	
+		if (temp->L!=NULL)
+		{
+			curr->R=temp->L;
+		}
+		else{
+			curr->R=NULL;
+		}
+		temp->L=curr;
+		if(temp->R!=NULL && temp->R->R!=NULL && i!=a-1)
+		{
+		curr=temp->R;
+		temp->R=curr->R;
+		temp=curr->R;
+	    }
+	}
+	root=delPtr;
 }
 
