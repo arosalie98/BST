@@ -1,3 +1,11 @@
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+This file implements the bst.h interface
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include "BST.h"
