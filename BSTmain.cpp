@@ -1,3 +1,11 @@
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+Given a binary tree, print its nodes an order
+*/
+
 #include <cstdlib>
 #include <iostream>
  #include "BST.h"
