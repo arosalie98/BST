@@ -1,3 +1,11 @@
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+This file exports the simple BST structure and methods used in the chapter
+*/
+
 #ifndef BST_H
 #define BST_H
 
