@@ -1,16 +1,10 @@
-﻿// Created by Aleksandr Golovin on 1/25/2018.
-// Project Name: ass2
-// File Name: binarysearchTree.h
-// Copyright � 2018 Aleksandr Golovin. All rights reserved.
-
-// The following class and some function declarations were written by:
-// Yusuf Pisan pisan@uw.edu
-// 15 Jan 2018
-
-// Edit 20 Jan 2018. Added <ItemType> for all cases
-// since it was complaining under some compilers but not g++
-
-
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+This file exports the simple BST structure and methods used in the chapter
+*/
 // BinarySearchTree class
 // Creates a BST to store values
 // Uses BinaryNode which holds the data
@@ -80,8 +74,6 @@ private:
 	// helper function for displaySideways to work recursively
 	void sideways(BinaryNode<ItemType>* current, int level) const;
 
-	// The following function declaration are written by Aleksandr Golovin:
-
 	// helper function for getNumberOfNodes 
 	void preOrderCountNodes(BinaryNode<ItemType>* current, int & count) const;
 	// helper function for clear
@@ -99,7 +91,7 @@ private:
 	// helper function for readTree
 	BinaryNode<ItemType>* buildTree(ItemType ar[], int lbound, int ubound);
 
-	// end of function declaration by Aleksandr Golovin
+	// end of function declaration 
 };
 
 #include "binarysearchtree.cpp"
