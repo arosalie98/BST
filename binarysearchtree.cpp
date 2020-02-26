@@ -1,9 +1,9 @@
-﻿// Created by Aleksandr Golovin on 1/25/2018.
-// Project Name: ass2
-// File Name: binarysearchTree.cpp
-// Copyright � 2018 Aleksandr Golovin. All rights reserved.
-// Note: The definitions for the functions and comments were written by Aleksandr Golovin,
-//		most of the function declarations were written by Dr. Pisan.
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+This file implements the bst.h interface
 
 #include "binarysearchtree.h"
 
