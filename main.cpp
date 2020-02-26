@@ -1,7 +1,10 @@
-﻿// Created by Aleksandr Golovin on 1/25/2018.
-// Project Name: ass2
-// File Name: ass2.cpp
-// Copyright � 2018 Aleksandr Golovin. All rights reserved.
+/*
+Student Name: <student name>
+Student NetID: <student NetID>
+Compiler Used: <Visual Studio, GCC, etc.>
+Program Description:
+Given a binary tree, print its nodes an order
+*/
 
 #include <iostream>
 #include <sstream>
@@ -13,8 +16,6 @@
 
 using namespace std;
 
-// The following functions are written by Yusuf Pisan pisan@uw.edu
-// on 15 Jan 2018
 void itemDisplay(string& anItem) {
 	cout << anItem << " ";
 }
@@ -135,7 +136,7 @@ void treeMenuInt() {
 	}
 }
 
-// end of Dr.Pisan's function declaration
+
 
 int main() {
 	
